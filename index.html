@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dari bima buat vivii</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GAYA DASAR & TEKSTUR --- */
+        body {
+            margin: 0;
+            padding: 50px 20px;
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fdfaf8; /* Warna dasar lebih hangat */
+            /* Pola titik-titik halus (Grid Journal) */
+            background-image: radial-gradient(#e5d1d6 1px, transparent 1px);
+            background-size: 25px 25px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND: PASTEL GLOWING ORBS --- */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: floatOrb 15s infinite alternate ease-in-out;
+        }
+        .orb-1 { top: -5%; left: -10%; width: 60vw; height: 60vw; background: #ffd1dc; }
+        .orb-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: #c6e2e9; animation-delay: -4s; }
+        .orb-3 { top: 40%; left: 30%; width: 45vw; height: 45vw; background: #e8dff5; animation-delay: -8s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -40px) scale(1.05); }
+        }
+
+        /* --- JUDUL & HEADER --- */
+        .header-container {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 5rem;
+            margin: 0;
+            /* Teks Gradasi Pastel */
+            background: linear-gradient(45deg, #d48b9f, #b57c8f, #9b7a97);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 2px rgba(255,255,255,0.8));
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            color: #8c7a80;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 5px 0 0 0;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        /* --- GRID ALBUM --- */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 60px 40px; /* Jarak atas-bawah dibesarkan sedikit */
+            max-width: 1050px;
+            width: 100%;
+            justify-items: center;
+            z-index: 2;
+        }
+
+        /* --- KARTU POLAROID PREMIUM --- */
+        .polaroid {
+            background: #ffffff;
+            padding: 16px 16px 75px 16px; /* Proporsi asli polaroid */
+            border-radius: 3px; /* Sudut agak tajam seperti kertas asli */
+            /* Layered shadow: bayangan tajam dekat + bayangan halus jauh */
+            box-shadow: 
+                0 2px 5px rgba(0,0,0,0.03),
+                0 15px 35px rgba(160, 110, 125, 0.12); 
+            width: 280px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: rotate(calc((var(--r) * 1deg)));
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        /* Variasi rotasi agar tidak terlalu berantakan */
+        .polaroid:nth-child(1n) { --r: -1.5; }
+        .polaroid:nth-child(2n) { --r: 2; }
+        .polaroid:nth-child(3n) { --r: -1; }
+        .polaroid:nth-child(4n) { --r: 1.5; }
+        .polaroid:nth-child(5n) { --r: -2; }
+        .polaroid:nth-child(6n) { --r: 1; }
+
+        /* --- MEDIA (IMG & VIDEO) --- */
+        .polaroid-media {
+            width: 100%;
+            height: 290px;
+            border-radius: 2px;
+            object-fit: cover; 
+            background-color: #f5ecee;
+            /* Filter vintage & soft focus */
+            filter: contrast(0.95) saturate(1.05) brightness(0.98);
+            transition: all 0.5s ease;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* Teks Caption */
+        .caption {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #5a4b50;
+            text-align: center;
+            position: absolute;
+            bottom: 22px;
+            left: 0;
+            width: 100%;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+        }
+
+        /* Washi Tape Realistis */
+        .washi-tape {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 85px;
+            height: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(245, 245, 245, 0.4) 100%);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            z-index: 10;
+            /* Efek serat selotip */
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+        }
+
+        /* Stiker Emoji Lucu */
+        .sticker {
+            position: absolute;
+            font-size: 2.8rem;
+            z-index: 5;
+            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.15));
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+        .stk-1 { top: -20px; right: -15px; transform: rotate(15deg); }
+        .stk-2 { top: -20px; left: -15px; transform: rotate(-15deg); }
+        .stk-3 { bottom: 65px; right: -15px; transform: rotate(-10deg); font-size: 3rem; }
+
+        /* --- EFEK HOVER (INTERAKSI) --- */
+        .polaroid:hover {
+            transform: scale(1.04) rotate(0deg) translateY(-8px);
+            box-shadow: 
+                0 10px 20px rgba(0,0,0,0.05),
+                0 25px 50px rgba(160, 110, 125, 0.2);
+            z-index: 10;
+        }
+
+        .polaroid:hover .polaroid-media {
+            filter: contrast(1.05) saturate(1.1) brightness(1.05); /* Gambar jadi jernih dan cerah */
+        }
+        
+        .polaroid:hover .sticker {
+            transform: scale(1.1) rotate(0deg); /* Stiker ikut goyang */
+        }
+
+        /* Animasi Masuk Super Halus */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) rotate(calc(var(--r) * 1deg)) scale(1); }
+        }
+        .polaroid { animation: fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
+        
+        .polaroid:nth-child(1) { animation-delay: 0.1s; }
+        .polaroid:nth-child(2) { animation-delay: 0.2s; }
+        .polaroid:nth-child(3) { animation-delay: 0.3s; }
+        .polaroid:nth-child(4) { animation-delay: 0.4s; }
+        .polaroid:nth-child(5) { animation-delay: 0.5s; }
+        .polaroid:nth-child(6) { animation-delay: 0.6s; }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="header-container">
+        <h1>dump vibi</h1>
+        <p class="subtitle">semogaa vivii sukaa yaaa</p>
+    </div>
+
+    <div class="album-grid" id="album-container"></div>
+
+    <script>
+        const dataAlbum = [
+            {
+                type: 'image',
+                src: 'vivi3.jpg',
+                caption: 'lucuuu banget',
+                hasTape: true,
+                sticker: '🎀',
+                stickerClass: 'stk-1'
+            },
+            {
+                type: 'video',
+                src: 'vivi1.mp4',
+                caption: 'imup banget vivinya bima',
+                hasTape: true,
+                tapeStyle: 'transform: translateX(-50%) rotate(4deg); background: rgba(255,218,226,0.6); border: 1px solid #ffd1dc;'
+            },
+            {
+                type: 'video',
+                src: 'vivi2.mp4',
+                caption: 'cantikkk sekaliii',
+                hasTape: false,
+                sticker: '✨',
+                stickerClass: 'stk-2'
+            },
+            {
+                type: 'image',
+                src: 'vivi4.jpg',
+                caption: 'senyumanny itulo maniss',
+                hasTape: true
+            },
+            {
+                type: 'video',
+                src: 'vivi4.mp4',
+                caption: 'manissnya senyuman vivi',
+                hasTape: false,
+                sticker: '🍦',
+                stickerClass: 'stk-1',
+                stickerStyle: 'right: auto; left: -15px;'
+            },
+            {
+                type: 'video',
+                src: 'vivi5.mp4',
+                caption: 'bima kangen vivi',
+                hasTape: true,
+                tapeStyle: 'width: 100px; transform: translateX(-50%) rotate(-2deg);',
+                sticker: '🧸',
+                stickerClass: 'stk-3'
+            }
+        ];
+
+        const albumContainer = document.getElementById('album-container');
+        let generatedHTML = '';
+
+        dataAlbum.forEach((item) => {
+            let tapeHTML = '';
+            if (item.hasTape) {
+                let customStyle = item.tapeStyle ? `style="${item.tapeStyle}"` : '';
+                tapeHTML = `<div class="washi-tape" ${customStyle}></div>`;
+            }
+
+            let mediaHTML = '';
+            if (item.type === 'video') {
+                mediaHTML = `<video class="polaroid-media" src="${item.src}" autoplay loop muted playsinline></video>`;
+            } else {
+                mediaHTML = `<img class="polaroid-media" src="${item.src}" alt="Foto Vivi">`;
+            }
+
+            let stickerHTML = '';
+            if (item.sticker) {
+                let customStyle = item.stickerStyle ? `style="${item.stickerStyle}"` : '';
+                let stikerPos = item.stickerClass ? item.stickerClass : 'stk-1';
+                stickerHTML = `<div class="sticker ${stikerPos}" ${customStyle}>${item.sticker}</div>`;
+            }
+
+            generatedHTML += `
+                <div class="polaroid">
+                    ${tapeHTML}
+                    ${mediaHTML}
+                    ${stickerHTML}
+                    <div class="caption">${item.caption}</div>
+                </div>
+            `;
+        });
+
+        albumContainer.innerHTML = generatedHTML;
+    </script>
+</body>
+</html>
